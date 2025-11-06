@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investasi Pintar - Panduan Investasi untuk Pemula</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <h1>💰 Investasi Pintar</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#tentang">Tentang</a></li>
+                    <li><a href="#jenis">Jenis Investasi</a></li>
+                    <li><a href="#kalkulator">Kalkulator</a></li>
+                    <li><a href="#tips">Tips</a></li>
+                </ul>
+                <button class="nav-toggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-title">Mulai Investasi Anda Hari Ini</h2>
+                    <p class="hero-subtitle">Masa depan yang lebih baik dimulai dari keputusan investasi yang tepat</p>
+                    <a href="#kalkulator" class="btn btn-primary">Mulai Investasi</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="tentang" class="about">
+            <div class="container">
+                <h2 class="section-title">Apa Itu Investasi?</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Investasi adalah kegiatan menempatkan dana atau modal pada suatu aset dengan harapan mendapatkan keuntungan di masa depan. Investasi yang baik dapat membantu Anda:</p>
+                        <ul class="benefits-list">
+                            <li>✅ Mencapai tujuan keuangan jangka panjang</li>
+                            <li>✅ Melindungi nilai uang dari inflasi</li>
+                            <li>✅ Menciptakan passive income</li>
+                            <li>✅ Mempersiapkan masa pensiun</li>
+                            <li>✅ Meningkatkan kekayaan secara bertahap</li>
+                        </ul>
+                    </div>
+                    <div class="about-image">
+                        <div class="image-placeholder">
+                            <span>📈</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investment Types Section -->
+        <section id="jenis" class="investment-types">
+            <div class="container">
+                <h2 class="section-title">Jenis-Jenis Investasi</h2>
+                <div class="types-grid">
+                    <div class="type-card">
+                        <div class="card-icon">📊</div>
+                        <h3>Saham</h3>
+                        <p>Kepemilikan sebagian dari perusahaan publik. Potensi return tinggi dengan risiko tinggi.</p>
+                        <div class="risk-badge risk-high">Risiko Tinggi</div>
+                    </div>
+                    <div class="type-card">
+                        <div class="card-icon">🏦</div>
+                        <h3>Reksa Dana</h3>
+                        <p>Portfolio investasi yang dikelola profesional. Cocok untuk pemula karena dikelola ahli.</p>
+                        <div class="risk-badge risk-medium">Risiko Sedang</div>
+                    </div>
+                    <div class="type-card">
+                        <div class="card-icon">🏠</div>
+                        <h3>Properti</h3>
+                        <p>Investasi dalam tanah atau bangunan. Nilai cenderung naik dan dapat disewakan.</p>
+                        <div class="risk-badge risk-medium">Risiko Sedang</div>
+                    </div>
+                    <div class="type-card">
+                        <div class="card-icon">💎</div>
+                        <h3>Emas</h3>
+                        <p>Investasi logam mulia yang stabil. Melindungi nilai dari inflasi dan krisis.</p>
+                        <div class="risk-badge risk-low">Risiko Rendah</div>
+                    </div>
+                    <div class="type-card">
+                        <div class="card-icon">💵</div>
+                        <h3>Deposito</h3>
+                        <p>Tabungan berjangka dengan bunga tetap. Aman dan stabil untuk jangka pendek.</p>
+                        <div class="risk-badge risk-low">Risiko Rendah</div>
+                    </div>
+                    <div class="type-card">
+                        <div class="card-icon">₿</div>
+                        <h3>Cryptocurrency</h3>
+                        <p>Mata uang digital yang sangat volatil. Potensi tinggi dengan risiko sangat tinggi.</p>
+                        <div class="risk-badge risk-high">Risiko Sangat Tinggi</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section id="kalkulator" class="calculator">
+            <div class="container">
+                <h2 class="section-title">Kalkulator Investasi</h2>
+                <p class="section-subtitle">Hitung potensi keuntungan investasi Anda</p>
+                <div class="calculator-container">
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label for="initial-amount">Jumlah Investasi Awal (Rp)</label>
+                            <input type="number" id="initial-amount" placeholder="10000000" min="0" step="1000">
+                        </div>
+                        <div class="form-group">
+                            <label for="monthly-amount">Investasi Bulanan (Rp)</label>
+                            <input type="number" id="monthly-amount" placeholder="1000000" min="0" step="1000">
+                        </div>
+                        <div class="form-group">
+                            <label for="return-rate">Return Tahunan (%)</label>
+                            <input type="number" id="return-rate" placeholder="12" min="0" max="100" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="years">Jangka Waktu (Tahun)</label>
+                            <input type="number" id="years" placeholder="10" min="1" max="50" step="1">
+                        </div>
+                        <button id="calculate-btn" class="btn btn-primary">Hitung</button>
+                    </div>
+                    <div class="calculator-result">
+                        <div class="result-card">
+                            <h3>Hasil Perhitungan</h3>
+                            <div class="result-item">
+                                <span class="result-label">Total Investasi:</span>
+                                <span class="result-value" id="total-invested">Rp 0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Nilai Akhir:</span>
+                                <span class="result-value highlight" id="final-value">Rp 0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">Keuntungan:</span>
+                                <span class="result-value profit" id="profit">Rp 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips Section -->
+        <section id="tips" class="tips">
+            <div class="container">
+                <h2 class="section-title">Tips Investasi untuk Pemula</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-number">1</div>
+                        <h3>Tentukan Tujuan</h3>
+                        <p>Pahami tujuan investasi Anda - apakah untuk pensiun, pendidikan, atau tujuan jangka pendek.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-number">2</div>
+                        <h3>Mulai Sedini Mungkin</h3>
+                        <p>Semakin lama waktu investasi, semakin besar potensi keuntungan karena efek compound interest.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-number">3</div>
+                        <h3>Diversifikasi Portfolio</h3>
+                        <p>Jangan taruh semua telur dalam satu keranjang. Sebarkan investasi ke berbagai instrumen.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-number">4</div>
+                        <h3>Investasi Rutin</h3>
+                        <p>Investasi rutin (dollar-cost averaging) dapat mengurangi risiko timing pasar.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-number">5</div>
+                        <h3>Pelajari Terus</h3>
+                        <p>Investasi adalah proses belajar. Tingkatkan pengetahuan finansial Anda secara konsisten.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-number">6</div>
+                        <h3>Bersabarlah</h3>
+                        <p>Investasi adalah maraton, bukan sprint. Tetap konsisten dan jangan terpengaruh fluktuasi jangka pendek.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Investasi Pintar. Dibuat untuk edukasi investasi.</p>
+            <p class="disclaimer">Disclaimer: Informasi ini hanya untuk tujuan edukasi. Selalu konsultasikan dengan penasihat keuangan profesional sebelum berinvestasi.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

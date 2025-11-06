@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple DevOps Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 DevOps Dashboard</h1>
+            <p class="subtitle">Simple Monitoring & Deployment</p>
+        </header>
+
+        <div class="dashboard">
+            <!-- Server Status Section -->
+            <section class="status-section">
+                <h2>Server Status</h2>
+                <div class="status-grid">
+                    <div class="status-card" id="server1">
+                        <div class="status-header">
+                            <h3>Production Server</h3>
+                            <span class="status-badge status-online">Online</span>
+                        </div>
+                        <div class="status-metrics">
+                            <div class="metric">
+                                <span class="metric-label">CPU</span>
+                                <span class="metric-value" id="cpu1">45%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Memory</span>
+                                <span class="metric-value" id="memory1">62%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Uptime</span>
+                                <span class="metric-value">12d 5h</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="status-card" id="server2">
+                        <div class="status-header">
+                            <h3>Staging Server</h3>
+                            <span class="status-badge status-online">Online</span>
+                        </div>
+                        <div class="status-metrics">
+                            <div class="metric">
+                                <span class="metric-label">CPU</span>
+                                <span class="metric-value" id="cpu2">32%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Memory</span>
+                                <span class="metric-value" id="memory2">48%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Uptime</span>
+                                <span class="metric-value">8d 3h</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="status-card" id="server3">
+                        <div class="status-header">
+                            <h3>Development Server</h3>
+                            <span class="status-badge status-online">Online</span>
+                        </div>
+                        <div class="status-metrics">
+                            <div class="metric">
+                                <span class="metric-label">CPU</span>
+                                <span class="metric-value" id="cpu3">18%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Memory</span>
+                                <span class="metric-value" id="memory3">35%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Uptime</span>
+                                <span class="metric-value">5d 14h</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deployment History Section -->
+            <section class="deployment-section">
+                <h2>Recent Deployments</h2>
+                <div class="deployment-list" id="deploymentList">
+                    <!-- Deployment items will be added dynamically -->
+                </div>
+            </section>
+
+            <!-- Actions Section -->
+            <section class="actions-section">
+                <h2>Quick Actions</h2>
+                <div class="action-buttons">
+                    <button class="action-btn deploy-btn" onclick="triggerDeployment()">
+                        <span>🚀</span>
+                        <span>Deploy</span>
+                    </button>
+                    <button class="action-btn refresh-btn" onclick="refreshMetrics()">
+                        <span>🔄</span>
+                        <span>Refresh</span>
+                    </button>
+                    <button class="action-btn logs-btn" onclick="viewLogs()">
+                        <span>📋</span>
+                        <span>View Logs</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Logs Section -->
+            <section class="logs-section" id="logsSection" style="display: none;">
+                <div class="logs-header">
+                    <h2>System Logs</h2>
+                    <button class="close-btn" onclick="closeLogs()">✕</button>
+                </div>
+                <div class="logs-content" id="logsContent">
+                    <!-- Logs will be displayed here -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor AI - Code Assistant</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Responsive breakpoints */
+        @media (max-width: 1024px) {
+            .app-creation-panel {
+                width: 280px;
+            }
+
+            .explorer-panel {
+                width: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .app-creation-panel {
+                width: 100%;
+                max-height: 40vh;
+                border-right: none;
+                border-bottom: 1px solid #3e3e42;
+            }
+
+            .main-content {
+                flex: 1;
+            }
+
+            .explorer-panel {
+                width: 100%;
+                max-height: 30vh;
+                border-left: none;
+                border-top: 1px solid #3e3e42;
+            }
+
+            .chat-header {
+                padding: 12px 16px;
+            }
+
+            .chat-header h1 {
+                font-size: 18px;
+            }
+
+            .container {
+                padding: 16px;
+            }
+        }
+
+        .app-creation-panel {
+            width: 320px;
+            background: #252526;
+            border-right: 1px solid #3e3e42;
+            padding: 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            scrollbar-width: thin;
+            scrollbar-color: #3e3e42 #252526;
+        }
+
+        .app-creation-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .app-creation-panel::-webkit-scrollbar-track {
+            background: #252526;
+        }
+
+        .app-creation-panel::-webkit-scrollbar-thumb {
+            background: #3e3e42;
+            border-radius: 3px;
+        }
+
+        .app-creation-panel::-webkit-scrollbar-thumb:hover {
+            background: #4e4e52;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 0;
+            overflow: hidden;
+            background: #1e1e1e;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background: #252526;
+            border-bottom: 1px solid #3e3e42;
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+            background: rgba(37, 37, 38, 0.95);
+        }
+
+        .chat-header h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+            color: #cccccc;
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #2d2d30;
+            border: 1px solid #3e3e42;
+            border-radius: 8px;
+            padding: 8px 14px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 13px;
+            color: #cccccc;
+            user-select: none;
+        }
+
+        .theme-toggle:hover {
+            background: #3e3e42;
+            border-color: #007acc;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 122, 204, 0.15);
+        }
+
+        .theme-toggle:active {
+            transform: translateY(0);
+        }
+
+        .theme-toggle-icon {
+            font-size: 16px;
+        }
+
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        body.light-mode .app-creation-panel,
+        body.light-mode .main-content,
+        body.light-mode .explorer-panel {
+            background: #f3f3f3;
+        }
+
+        body.light-mode .chat-header,
+        body.light-mode .container,
+        body.light-mode .panel-header,
+        body.light-mode .app-creation-header,
+        body.light-mode .app-processing-header {
+            background: #ffffff;
+            border-color: #e0e0e0;
+        }
+
+        body.light-mode .chat-header h1,
+        body.light-mode .panel-header,
+        body.light-mode .app-creation-header,
+        body.light-mode .app-processing-header,
+        body.light-mode label,
+        body.light-mode .model-dropdown-hint {
+            color: #333333;
+        }
+
+        body.light-mode .model-dropdown-header,
+        body.light-mode .model-dropdown-content,
+        body.light-mode .model-toggle-option,
+        body.light-mode .model-item,
+        body.light-mode textarea#question,
+        body.light-mode .explorer-item {
+            background-color: #ffffff;
+            border-color: #e0e0e0;
+            color: #333333;
+        }
+
+        body.light-mode .model-dropdown-header:hover,
+        body.light-mode .model-toggle-option:hover,
+        body.light-mode .model-item:hover,
+        body.light-mode .explorer-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        body.light-mode .theme-toggle {
+            background: #ffffff;
+            border-color: #e0e0e0;
+            color: #333333;
+        }
+
+        body.light-mode .theme-toggle:hover {
+            background: #f5f5f5;
+            border-color: #007acc;
+        }
+
+        body.light-mode .btn-regular,
+        body.light-mode .btn-clear,
+        body.light-mode .btn-create-app {
+            background-color: #007acc;
+            color: #ffffff;
+        }
+
+        body.light-mode .btn-regular:hover,
+        body.light-mode .btn-clear:hover,
+        body.light-mode .btn-create-app:hover {
+            background-color: #005a9e;
+        }
+
+        body.light-mode .response-area {
+            background-color: #ffffff;
+            border-color: #e0e0e0;
+            color: #333333;
+        }
+
+        body.light-mode .status {
+            background-color: #f5f5f5;
+            color: #333333;
+        }
+
+        body.light-mode .loading {
+            color: #333333;
+            background-color: #e3f2fd;
+            border-color: #90caf9;
+        }
+
+        body.light-mode .app-preview {
+            background-color: #ffffff;
+            border-color: #e0e0e0;
+            color: #333333;
+        }
+
+        body.light-mode .app-preview a {
+            color: #007acc;
+        }
+
+        body.light-mode .app-preview a:hover {
+            color: #005a9e;
+        }
+
+        body.light-mode .explorer-item.file a {
+            color: #007acc;
+        }
+
+        body.light-mode .explorer-item.file a:hover {
+            color: #005a9e;
+        }
+
+        body.light-mode .model-item.selected {
+            background-color: #e3f2fd;
+        }
+
+        body.light-mode .model-item-check {
+            color: #007acc;
+        }
+
+        body.light-mode .toggle-switch {
+            background-color: #e0e0e0;
+        }
+
+        body.light-mode .toggle-switch.active {
+            background-color: #007acc;
+        }
+
+        body.light-mode .status.success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        body.light-mode .status.error {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        body.light-mode textarea#appPrompt {
+            background-color: #ffffff !important;
+            border-color: #e0e0e0 !important;
+            color: #333333 !important;
+        }
+
+        body.light-mode textarea#appPrompt::placeholder {
+            color: #999999;
+        }
+
+        body.light-mode textarea#question::placeholder {
+            color: #999999;
+        }
+
+        .container {
+            flex: 1;
+            background: #252526;
+            padding: 24px;
+            overflow-y: auto;
+            border: 1px solid #3e3e42;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+            scrollbar-width: thin;
+            scrollbar-color: #3e3e42 #252526;
+        }
+
+        .container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: #252526;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: #3e3e42;
+            border-radius: 4px;
+        }
+
+        .container::-webkit-scrollbar-thumb:hover {
+            background: #4e4e52;
+        }
+
+        .explorer-panel {
+            width: 300px;
+            background: #252526;
+            border-left: 1px solid #3e3e42;
+            padding: 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            scrollbar-width: thin;
+            scrollbar-color: #3e3e42 #252526;
+        }
+
+        .explorer-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .explorer-panel::-webkit-scrollbar-track {
+            background: #252526;
+        }
+
+        .explorer-panel::-webkit-scrollbar-thumb {
+            background: #3e3e42;
+            border-radius: 3px;
+        }
+
+        .explorer-panel::-webkit-scrollbar-thumb:hover {
+            background: #4e4e52;
+        }
+
+        .panel-header {
+            font-weight: 600;
+            font-size: 13px;
+            color: #cccccc;
+            padding: 14px 16px;
+            background: #2d2d30;
+            border-bottom: 1px solid #3e3e42;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        .panel-content {
+            padding: 16px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .app-creation-section {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .app-creation-header {
+            font-weight: 600;
+            font-size: 13px;
+            color: #cccccc;
+            padding: 12px 16px;
+            background: #2d2d30;
+            border-top: 1px solid #3e3e42;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .app-creation-content {
+            padding: 16px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .app-preview {
+            margin-top: 12px;
+            border: 1px solid #3e3e42;
+            border-radius: 8px;
+            padding: 16px;
+            background-color: #2d2d30;
+            display: none;
+            transition: all 0.2s ease;
+        }
+
+        .app-preview.show {
+            display: block;
+        }
+
+        .app-preview h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: #4ec9b0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .app-preview p {
+            margin: 8px 0;
+            font-size: 12px;
+            color: #cccccc;
+        }
+
+        .app-preview code {
+            background-color: #1e1e1e;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            color: #dcdcaa;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .app-processing {
+            margin-top: 12px;
+            padding: 16px;
+            background-color: #1e3a5f;
+            border: 1px solid #264f78;
+            border-radius: 8px;
+            display: none;
+            transition: all 0.2s ease;
+        }
+
+        .app-processing.show {
+            display: block;
+        }
+
+        .app-processing-header {
+            font-weight: 600;
+            font-size: 13px;
+            color: #4fc3f7;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .app-processing-content {
+            font-size: 12px;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        .app-processing-content code {
+            background-color: #1e1e1e;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            color: #dcdcaa;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .app-processing-content strong {
+            color: #4fc3f7;
+        }
+
+        .explorer-item {
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 6px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #cccccc;
+            margin: 2px 0;
+        }
+
+        .explorer-item:hover {
+            background-color: #2a2d2e;
+            transform: translateX(4px);
+        }
+
+        .explorer-item.folder {
+            font-weight: 500;
+            color: #cccccc;
+        }
+
+        .explorer-item.file {
+            color: #858585;
+            padding-left: 32px;
+        }
+
+        .explorer-item.file a {
+            color: #4fc3f7;
+            text-decoration: none;
+        }
+
+        .explorer-item.file a:hover {
+            color: #6ec8ff;
+            text-decoration: underline;
+        }
+
+        .explorer-icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .model-selector {
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .model-dropdown {
+            position: relative;
+            width: 100%;
+        }
+
+        .model-dropdown-header {
+            padding: 10px 14px;
+            border: 1px solid #3e3e42;
+            border-radius: 8px;
+            background-color: #252526;
+            color: #cccccc;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .model-dropdown-header:hover {
+            background-color: #2a2d2e;
+            border-color: #4e4e52;
+            transform: translateY(-1px);
+        }
+
+        .model-dropdown-header.active {
+            border-color: #007acc;
+            box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.15);
+        }
+
+        .model-dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 6px;
+            background-color: #252526;
+            border: 1px solid #3e3e42;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            max-height: 400px;
+            overflow-y: auto;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .model-dropdown-content.show {
+            display: block;
+        }
+
+        .model-dropdown-hint {
+            padding: 8px 12px;
+            font-size: 11px;
+            color: #858585;
+            border-bottom: 1px solid #3e3e42;
+        }
+
+        .model-toggle-option {
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #cccccc;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid #2a2d2e;
+            user-select: none;
+        }
+
+        .model-toggle-option:hover {
+            background-color: #2a2d2e;
+            padding-left: 16px;
+        }
+
+        .model-toggle-option span {
+            pointer-events: none;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background-color: #3e3e42;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+        }
+
+        .toggle-switch:hover {
+            background-color: #4e4e52;
+        }
+
+        .toggle-switch.active {
+            background-color: #007acc;
+        }
+
+        .toggle-switch.active:hover {
+            background-color: #0098ff;
+        }
+
+        .toggle-switch-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.active .toggle-switch-slider {
+            transform: translateX(20px);
+        }
+
+        .model-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .model-item {
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #cccccc;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 4px;
+            margin: 2px 4px;
+        }
+
+        .model-item:hover {
+            background-color: #2a2d2e;
+            transform: translateX(2px);
+        }
+
+        .model-item.selected {
+            background-color: #2a2d2e;
+            border-left: 3px solid #007acc;
+        }
+
+        .model-item-check {
+            color: #007acc;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+
+        .model-item-icon {
+            margin-right: 8px;
+            font-size: 12px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #cccccc;
+            font-size: 13px;
+        }
+
+        textarea#question {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #3e3e42;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            min-height: 48px;
+            max-height: 240px;
+            overflow: auto;
+            resize: none;
+            line-height: 1.6;
+            background-color: #1e1e1e;
+            color: #cccccc;
+            font-family: inherit;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        textarea#question:hover {
+            border-color: #4e4e52;
+        }
+
+        textarea#question:focus {
+            outline: none;
+            border-color: #007acc;
+            box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.15);
+            background-color: #252526;
+        }
+
+        textarea#question::placeholder {
+            color: #858585;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-regular {
+            background-color: #0e639c;
+            color: #ffffff;
+            border: 1px solid #1177bb;
+        }
+
+        .btn-regular:hover:not(:disabled) {
+            background-color: #1177bb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 99, 156, 0.3);
+        }
+
+        .btn-regular:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-regular:disabled {
+            background-color: #3e3e42;
+            color: #858585;
+            border-color: #3e3e42;
+            cursor: not-allowed;
+            opacity: 0.6;
+            transform: none;
+        }
+
+        .btn-stream {
+            background-color: #0e7c0e;
+            color: #ffffff;
+            border: 1px solid #117711;
+        }
+
+        .btn-stream:hover:not(:disabled) {
+            background-color: #117711;
+            transform: translateY(-1px);
+        }
+
+        .btn-stream:disabled {
+            background-color: #3e3e42;
+            color: #858585;
+            border-color: #3e3e42;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .btn-clear {
+            background-color: #5a5a5a;
+            color: #ffffff;
+            border: 1px solid #6a6a6a;
+        }
+
+        .btn-clear:hover:not(:disabled) {
+            background-color: #6a6a6a;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(90, 90, 90, 0.3);
+        }
+
+        .btn-clear:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-clear:disabled {
+            background-color: #3e3e42;
+            color: #858585;
+            border-color: #3e3e42;
+            cursor: not-allowed;
+            opacity: 0.6;
+            transform: none;
+        }
+
+        .btn-create-app {
+            background-color: #f48771;
+            color: #ffffff;
+            border: 1px solid #ff6b35;
+        }
+
+        .btn-create-app:hover:not(:disabled) {
+            background-color: #ff6b35;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(244, 135, 113, 0.3);
+        }
+
+        .btn-create-app:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-create-app:disabled {
+            background-color: #3e3e42;
+            color: #858585;
+            border-color: #3e3e42;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+
+        .app-preview-link {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background-color: #0e639c;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid #1177bb;
+        }
+
+        .app-preview-link:hover {
+            background-color: #1177bb;
+            transform: translateY(-1px);
+        }
+
+
+        .response-area {
+            border: 1px solid #3e3e42;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 200px;
+            max-height: 600px;
+            overflow-y: auto;
+            background-color: #1e1e1e;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+            word-wrap: break-word;
+            line-height: 1.7;
+            color: #cccccc;
+            font-size: 14px;
+            margin-top: 16px;
+            scrollbar-width: thin;
+            scrollbar-color: #3e3e42 #1e1e1e;
+        }
+
+        .response-area::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .response-area::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .response-area::-webkit-scrollbar-thumb {
+            background: #3e3e42;
+            border-radius: 4px;
+        }
+
+        .response-area::-webkit-scrollbar-thumb:hover {
+            background: #4e4e52;
+        }
+
+        .response-area h1,
+        .response-area h2,
+        .response-area h3 {
+            margin-top: 1.2em;
+        }
+
+        .response-area code {
+            background: transparent;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .response-area pre {
+            background: #1e1e1e;
+            color: #cccccc;
+            padding: 12px;
+            border-radius: 6px;
+            overflow: auto;
+            border: 1px solid #3e3e42;
+        }
+
+        .response-area pre code {
+            color: #dcdcaa;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .response-area code {
+            color: #dcdcaa;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background-color: #2d2d30;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .response-area ul {
+            padding-left: 1.2rem;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #4fc3f7;
+            font-style: italic;
+            font-size: 13px;
+            padding: 12px;
+            background-color: #1e3a5f;
+            border-radius: 6px;
+            border: 1px solid #264f78;
+            margin-top: 16px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            animation: progress 2s infinite;
+            transition: width 0.3s ease;
+        }
+
+        @keyframes progress {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(0%);
+            }
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .status {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .status.success {
+            background-color: #1e3a1e;
+            color: #4ec9b0;
+            border: 1px solid #2d4d2d;
+        }
+
+        .status.error {
+            background-color: #3a1e1e;
+            color: #f48771;
+            border: 1px solid #4d2d2d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-creation-panel">
+        <div class="app-creation-section">
+            <div class="app-creation-header">🚀 From Idea to App</div>
+            <div class="app-creation-header">Create Your Own App</div>
+            <div class="app-creation-content">
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label for="appPrompt" style="font-size: 12px; margin-bottom: 6px;">App Prompt:</label>
+                    <textarea id="appPrompt" placeholder="Enter app description..." rows="3"
+                        style="width: 100%; padding: 8px; border: 1px solid #3e3e42; border-radius: 6px; font-size: 12px; background-color: #1e1e1e; color: #cccccc; resize: vertical; min-height: 60px; font-family: inherit;"></textarea>
+                </div>
+                <button class="btn-create-app" onclick="createApp()" style="width: 100%; margin-bottom: 16px;">Create
+                    App</button>
+
+                <div class="app-processing" id="appProcessing">
+                    <div class="app-processing-header">🔄 Processing...</div>
+                    <div class="app-processing-content" id="appProcessingContent">
+                        <p>Initializing...</p>
+                    </div>
+                </div>
+
+                <div class="app-preview" id="appPreview">
+                    <h3>✅ App Created Successfully!</h3>
+                    <p><strong>Folder Name:</strong> <code id="appId"></code></p>
+                    <p><strong>File Path:</strong> <code id="filePath"></code></p>
+                    <a href="#" id="appLink" target="_blank" class="app-preview-link">🔗 View Preview</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="chat-header">
+            <h1>💬 Cursor AI Assistant</h1>
+            <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                <span class="theme-toggle-icon" id="themeIcon">🌙</span>
+                <span id="themeText">Dark Mode</span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="input-group">
+                <label for="question">Ask a question:</label>
+                <textarea id="question" placeholder="Enter your question here..." rows="1"></textarea>
+            </div>
+
+            <div class="model-selector">
+                <div class="model-dropdown" id="modelDropdown">
+                    <div class="model-dropdown-header" id="modelDropdownHeader">
+                        <span id="selectedModelText">✨ Auto</span>
+                        <span>▼</span>
+                    </div>
+                    <div class="model-dropdown-content" id="modelDropdownContent">
+                        <div class="model-dropdown-hint">Ctrl+/ to switch models</div>
+                        <div class="model-toggle-option" onclick="toggleAuto(event)">
+                            <span>Auto</span>
+                            <div class="toggle-switch active" id="autoToggle">
+                                <div class="toggle-switch-slider"></div>
+                            </div>
+                        </div>
+                        <div class="model-toggle-option" onclick="toggleMaxMode(event)">
+                            <span>MAX Mode</span>
+                            <div class="toggle-switch" id="maxModeToggle">
+                                <div class="toggle-switch-slider"></div>
+                            </div>
+                        </div>
+                        <div class="model-list">
+                            <div class="model-item selected" data-value="auto" onclick="selectModel('auto')">
+                                <span><span class="model-item-icon">✨</span>Auto</span>
+                                <span class="model-item-check">✓</span>
+                            </div>
+                            <div class="model-item" data-value="cursor-regular" onclick="selectModel('cursor-regular')">
+                                <span><span class="model-item-icon">🤖</span>composer-1</span>
+                            </div>
+                            <div class="model-item" data-value="cursor-stream" onclick="selectModel('cursor-stream')">
+                                <span><span class="model-item-icon">🤖</span>composer-1 (Stream)</span>
+                            </div>
+                            <div class="model-item" data-value="gemini-regular" onclick="selectModel('gemini-regular')">
+                                <span><span class="model-item-icon">✨</span>gemini-2.0-flash</span>
+                            </div>
+                            <div class="model-item" data-value="gemini-stream" onclick="selectModel('gemini-stream')">
+                                <span><span class="model-item-icon">✨</span>gemini-2.0-flash (Stream)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-regular" onclick="askQuestion()" id="askBtn">Stream</button>
+                <button class="btn-clear" onclick="clearResponse()">Clear</button>
+            </div>
+
+            <div class="loading" id="loading">
+                <span class="cursor">▋</span> Processing...
+            </div>
+
+            <div class="response-area" id="response"></div>
+
+            <div class="status" id="status" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div class="explorer-panel" id="explorerPanel">
+        <div class="panel-header">📁 Generated Apps</div>
+        <div class="panel-content" id="explorerContent"></div>
+    </div>
+
+    <!-- Lightweight Markdown renderer -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        const questionInput = document.getElementById('question');
+        const responseArea = document.getElementById('response');
+        const loading = document.getElementById('loading');
+        const status = document.getElementById('status');
+        const appPreview = document.getElementById('appPreview');
+        const appId = document.getElementById('appId');
+        const appLink = document.getElementById('appLink');
+        const filePathEl = document.getElementById('filePath');
+        const createBtn = document.querySelector('.btn-create-app');
+        const appPromptInput = document.getElementById('appPrompt');
+        const explorerContent = document.getElementById('explorerContent');
+        const btnClear = document.querySelector('.btn-clear');
+        const modelDropdown = document.getElementById('modelDropdown');
+        const modelDropdownHeader = document.getElementById('modelDropdownHeader');
+        const modelDropdownContent = document.getElementById('modelDropdownContent');
+        const selectedModelText = document.getElementById('selectedModelText');
+        const askBtn = document.getElementById('askBtn');
+
+        // Current selected model (default: auto)
+        let currentModel = 'auto';
+        const appProcessing = document.getElementById('appProcessing');
+        const appProcessingContent = document.getElementById('appProcessingContent');
+
+        function showStatus(message, type) {
+            status.textContent = message;
+            status.className = `status ${type}`;
+            status.style.display = 'block';
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 3000);
+        }
+
+        function showLoading() {
+            loading.classList.add('show');
+            responseArea.textContent = '';
+        }
+
+        function hideLoading() {
+            loading.classList.remove('show');
+        }
+
+        // Auto-resize textarea to fit content up to max-height
+        function autosizeTextarea(el) {
+            el.style.height = 'auto';
+            const newHeight = Math.min(el.scrollHeight, 240);
+            el.style.height = newHeight + 'px';
+        }
+        questionInput.addEventListener('input', () => autosizeTextarea(questionInput));
+        // Initialize height on load
+        autosizeTextarea(questionInput);
+
+        // Toggle dropdown
+        modelDropdownHeader.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const isActive = modelDropdownContent.classList.contains('show');
+            if (isActive) {
+                modelDropdownContent.classList.remove('show');
+                modelDropdownHeader.classList.remove('active');
+            } else {
+                modelDropdownContent.classList.add('show');
+                modelDropdownHeader.classList.add('active');
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!modelDropdown.contains(e.target)) {
+                modelDropdownContent.classList.remove('show');
+                modelDropdownHeader.classList.remove('active');
+            }
+        });
+
+        // Toggle Auto
+        function toggleAuto(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            const autoToggle = document.getElementById('autoToggle');
+            const isActive = autoToggle.classList.contains('active');
+
+            if (isActive) {
+                // Disable Auto - turn off toggle
+                autoToggle.classList.remove('active');
+                // Don't change model selection, just disable the toggle
+            } else {
+                // Enable Auto - turn on toggle
+                autoToggle.classList.add('active');
+                // If Auto is enabled, select Auto model
+                selectModel('auto');
+            }
+        }
+
+        // Toggle MAX Mode
+        function toggleMaxMode(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            const maxModeToggle = document.getElementById('maxModeToggle');
+            maxModeToggle.classList.toggle('active');
+        }
+
+        // Select model
+        function selectModel(value) {
+            currentModel = value;
+
+            // Update selected item
+            document.querySelectorAll('.model-item').forEach(item => {
+                item.classList.remove('selected');
+                const check = item.querySelector('.model-item-check');
+                if (check) check.remove();
+            });
+
+            const selectedItem = document.querySelector(`[data-value="${value}"]`);
+            if (selectedItem) {
+                selectedItem.classList.add('selected');
+                if (!selectedItem.querySelector('.model-item-check')) {
+                    const check = document.createElement('span');
+                    check.className = 'model-item-check';
+                    check.textContent = '✓';
+                    selectedItem.appendChild(check);
+                }
+            }
+
+            // Update Auto toggle based on selected model
+            const autoToggle = document.getElementById('autoToggle');
+            if (value === 'auto') {
+                autoToggle.classList.add('active');
+            } else {
+                // When user selects other model, automatically turn off Auto toggle
+                autoToggle.classList.remove('active');
+            }
+
+            // Update header text
+            const modelNames = {
+                'auto': '✨ Auto',
+                'cursor-regular': '🤖 composer-1',
+                'cursor-stream': '🤖 composer-1 (Stream)',
+                'gemini-regular': '✨ gemini-2.0-flash',
+                'gemini-stream': '✨ gemini-2.0-flash (Stream)'
+            };
+            selectedModelText.textContent = modelNames[value] || '✨ Auto';
+
+            // Update button text
+            if (value.includes('stream') || value === 'auto') {
+                askBtn.textContent = 'Stream';
+            } else {
+                askBtn.textContent = 'Ask';
+            }
+
+            // Close dropdown
+            modelDropdownContent.classList.remove('show');
+            modelDropdownHeader.classList.remove('active');
+        }
+
+        // Main ask function that routes to appropriate handler
+        async function askQuestion() {
+            const model = currentModel;
+
+            if (model === 'auto') {
+                // Auto uses Gemini Stream
+                await askGeminiStream();
+            } else if (model === 'cursor-regular') {
+                await askRegular();
+            } else if (model === 'cursor-stream') {
+                await askStream();
+            } else if (model === 'gemini-regular') {
+                await askGeminiRegular();
+            } else if (model === 'gemini-stream') {
+                await askGeminiStream();
+            }
+        }
+
+        async function askRegular() {
+            const question = questionInput.value.trim();
+            if (!question) {
+                showStatus('Please enter a question', 'error');
+                return;
+            }
+
+            // Disable buttons during ask
+            askBtn.disabled = true;
+            btnClear.disabled = true;
+            showLoading();
+
+            try {
+                const response = await fetch('http://localhost:8080/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        question
+                    })
+                });
+
+                const data = await response.json();
+                hideLoading();
+
+                // Re-enable buttons
+                askBtn.disabled = false;
+                btnClear.disabled = false;
+
+                if (data.error) {
+                    responseArea.innerHTML = `<strong>Error:</strong> ${data.error}`;
+                    showStatus('Error occurred', 'error');
+                } else {
+                    // Render Markdown nicely
+                    responseArea.innerHTML = marked.parse(data.answer || '');
+                    showStatus('Response received', 'success');
+                }
+            } catch (error) {
+                hideLoading();
+                // Re-enable buttons on error
+                askBtn.disabled = false;
+                btnClear.disabled = false;
+                responseArea.innerHTML = `<strong>Error:</strong> ${error.message}`;
+                showStatus('Network error', 'error');
+            }
+        }
+
+        async function askStream() {
+            const question = questionInput.value.trim();
+            if (!question) {
+                showStatus('Please enter a question', 'error');
+                return;
+            }
+
+            // Disable buttons during ask
+            askBtn.disabled = true;
+            btnClear.disabled = true;
+            showLoading();
+            responseArea.innerHTML = '';
+            let streamBuffer = '';
+            let assistantBuffer = '';
+            let scheduled = false;
+            let assistantStarted = false;
+
+            const scheduleRender = () => {
+                if (scheduled) return;
+                scheduled = true;
+                requestAnimationFrame(() => {
+                    // Render markdown so bold/headings/lists/code are formatted nicely
+                    responseArea.innerHTML = marked.parse(assistantBuffer || streamBuffer);
+                    scheduled = false;
+                });
+            };
+
+            try {
+                const response = await fetch('http://localhost:8080/ask-stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        question
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+
+                while (true) {
+                    const {
+                        done,
+                        value
+                    } = await reader.read();
+                    if (done) break;
+
+                    buffer += decoder.decode(value, {
+                        stream: true
+                    });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop(); // simpan baris belum lengkap
+
+                    for (const line of lines) {
+                        if (!line.startsWith('data: ')) continue;
+
+                        try {
+                            const data = JSON.parse(line.slice(6));
+
+                            // Hanya proses potongan assistant text dari payload BE
+                            if (data.type === 'chunk') {
+                                const raw = (data.content || '').trim();
+                                let obj = null;
+                                try {
+                                    obj = JSON.parse(raw);
+                                } catch (_) {
+                                    continue;
+                                }
+
+                                // Bentuk A: { type: 'assistant', message: { role: 'assistant', content: [ { type: 'text', text: '...' } ] } }
+                                if (obj && obj.type === 'assistant' && obj.message && obj.message.role ===
+                                    'assistant' && Array.isArray(obj.message.content)) {
+                                    for (const part of obj.message.content) {
+                                        if (part && part.type === 'text' && typeof part.text === 'string') {
+                                            assistantBuffer += part.text;
+                                        }
+                                    }
+                                    if (!assistantStarted) {
+                                        hideLoading();
+                                        assistantStarted = true;
+                                    }
+                                    scheduleRender();
+                                } else if (obj && obj.role === 'assistant' && Array.isArray(obj.content)) {
+                                    // Bentuk B: { role: 'assistant', content: [ { type: 'text', text: '...' } ] }
+                                    for (const part of obj.content) {
+                                        if (part && part.type === 'text' && typeof part.text === 'string') {
+                                            assistantBuffer += part.text;
+                                        }
+                                    }
+                                    if (!assistantStarted) {
+                                        hideLoading();
+                                        assistantStarted = true;
+                                    }
+                                    scheduleRender();
+                                }
+                                // Abaikan semua tipe selain itu (system/user/thinking/result)
+                            } else if (data.type === 'done') {
+                                hideLoading();
+                                // Re-enable buttons
+                                btnRegular.disabled = false;
+                                btnStream.disabled = false;
+                                btnClear.disabled = false;
+                                showStatus('Streaming complete', 'success');
+                                return;
+                            } else if (data.type === 'error') {
+                                // Bila perlu tampilkan error singkat
+                                streamBuffer += `\nError: ${data.error}\n`;
+                                scheduleRender();
+                                showStatus('Streaming error', 'error');
+                                hideLoading();
+                                // Re-enable buttons on error
+                                btnRegular.disabled = false;
+                                btnStream.disabled = false;
+                                btnClear.disabled = false;
+                            }
+                        } catch (err) {
+                            console.error('Error parsing SSE data:', err, line);
+                        }
+                    }
+                }
+
+                showStatus('Streaming complete', 'success');
+            } catch (error) {
+                hideLoading();
+                // Re-enable buttons on error
+                askBtn.disabled = false;
+                btnClear.disabled = false;
+                responseArea.textContent = `Error: ${error.message}`;
+                showStatus('Streaming error', 'error');
+            }
+        }
+
+
+        function clearResponse() {
+            responseArea.textContent = '';
+            hideLoading();
+            status.style.display = 'none';
+            appPreview.classList.remove('show');
+        }
+
+        let currentJobId = null;
+        let jobStatusInterval = null;
+
+        async function createApp() {
+            const prompt = appPromptInput.value.trim();
+            if (!prompt) {
+                showStatus('Please enter a prompt to create an app', 'error');
+                return;
+            }
+
+            // Disable button and show processing in right panel
+            createBtn.disabled = true;
+            createBtn.textContent = 'Creating...';
+            appPreview.classList.remove('show');
+            appProcessing.classList.add('show');
+            appProcessingContent.innerHTML = '<p>Creating app... This may take a moment.</p>';
+
+            // Clear any existing polling
+            if (jobStatusInterval) {
+                clearInterval(jobStatusInterval);
+                jobStatusInterval = null;
+            }
+
+            try {
+                // Start async job
+                const response = await fetch('http://localhost:8080/create-folder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    // Hide processing and re-enable button
+                    appProcessing.classList.remove('show');
+                    createBtn.disabled = false;
+                    createBtn.textContent = 'Create App';
+                    appProcessingContent.innerHTML =
+                        `<p style="color: #f00;"><strong>Error:</strong> ${data.error}</p>`;
+                    showStatus('Error occurred while creating app', 'error');
+                    appPreview.classList.remove('show');
+                } else {
+                    // Got job ID, start polling
+                    // Keep processing visible and button disabled
+                    appProcessing.classList.add('show');
+                    createBtn.disabled = true;
+                    createBtn.textContent = 'Creating...';
+
+                    currentJobId = data.job_id;
+                    appProcessingContent.innerHTML =
+                        `<p><strong>Job started!</strong></p><p>Job ID: <code>${data.job_id}</code></p><p id="jobProgress">Initializing...</p>`;
+
+                    // Start polling job status
+                    pollJobStatus(data.job_id);
+                }
+            } catch (error) {
+                // Hide processing on error
+                appProcessing.classList.remove('show');
+                createBtn.disabled = false;
+                createBtn.textContent = 'Create App';
+                appProcessingContent.innerHTML =
+                    `<p style="color: #f00;"><strong>Error:</strong> ${error.message}</p>`;
+                showStatus('Network error', 'error');
+                appPreview.classList.remove('show');
+            }
+        }
+
+        async function pollJobStatus(jobId) {
+            // Poll every 1 second
+            jobStatusInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`http://localhost:8080/job-status?job_id=${jobId}`);
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const job = await response.json();
+
+                    // Update progress display
+                    const progressEl = document.getElementById('jobProgress');
+                    if (progressEl) {
+                        progressEl.textContent = job.progress || 'Processing...';
+                    }
+
+                    // Update processing panel with status
+                    if (job.status === 'processing' || job.status === 'pending') {
+                        // Keep processing visible and button disabled during processing
+                        appProcessing.classList.add('show');
+                        createBtn.disabled = true;
+                        createBtn.textContent = 'Creating...';
+
+                        appProcessingContent.innerHTML =
+                            `<p><strong>🔄 Processing...</strong></p>` +
+                            `<p>Job ID: <code>${job.job_id}</code></p>` +
+                            `<p>Status: <strong>${job.status}</strong></p>` +
+                            `<p>Progress: ${job.progress}</p>`;
+                    } else if (job.status === 'completed') {
+                        // Job completed
+                        clearInterval(jobStatusInterval);
+                        jobStatusInterval = null;
+
+                        // Hide processing and re-enable button
+                        appProcessing.classList.remove('show');
+                        createBtn.disabled = false;
+                        createBtn.textContent = 'Create App';
+
+                        // Show success in preview section
+                        const previewURL = `http://localhost:8080${job.url}`;
+                        appId.textContent = job.folder_name;
+                        filePathEl.textContent = job.file_path;
+                        appLink.href = previewURL;
+                        appLink.textContent = '🔗 View Preview';
+                        appPreview.classList.add('show');
+
+                        showStatus('App created successfully', 'success');
+
+                        // Refresh explorer
+                        loadExplorer();
+
+                        currentJobId = null;
+                    } else if (job.status === 'failed') {
+                        // Job failed
+                        clearInterval(jobStatusInterval);
+                        jobStatusInterval = null;
+
+                        // Hide processing and re-enable button
+                        appProcessing.classList.remove('show');
+                        createBtn.disabled = false;
+                        createBtn.textContent = 'Create App';
+
+                        appProcessingContent.innerHTML =
+                            `<p style="color: #f00;"><strong>❌ Job failed</strong></p>` +
+                            `<p>Error: <code>${job.error || 'Unknown error'}</code></p>`;
+                        showStatus('Job failed', 'error');
+                        appPreview.classList.remove('show');
+
+                        currentJobId = null;
+                    }
+                } catch (error) {
+                    console.error('Error polling job status:', error);
+                    // Continue polling even on error
+                }
+            }, 1000); // Poll every 1 second
+        }
+
+        async function loadExplorer() {
+            try {
+                const response = await fetch('http://localhost:8080/list-apps');
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const apps = await response.json();
+
+                explorerContent.innerHTML = '';
+
+                if (!apps || apps.length === 0) {
+                    explorerContent.innerHTML =
+                        '<div style="color: #858585; padding: 12px; font-size: 12px; text-align: center;">No apps yet</div>';
+                    return;
+                }
+
+                apps.forEach(app => {
+                    // Folder item
+                    const folderDiv = document.createElement('div');
+                    folderDiv.className = 'explorer-item folder';
+                    folderDiv.innerHTML = `<span class="explorer-icon">📁</span>${app.name}`;
+                    explorerContent.appendChild(folderDiv);
+
+                    // Files in folder
+                    if (app.children && app.children.length > 0) {
+                        app.children.forEach(file => {
+                            const fileDiv = document.createElement('div');
+                            fileDiv.className = 'explorer-item file';
+
+                            // Determine icon based on file extension
+                            let icon = '📄';
+                            if (file.name.endsWith('.html')) {
+                                icon = '🌐';
+                            } else if (file.name.endsWith('.css')) {
+                                icon = '🎨';
+                            } else if (file.name.endsWith('.js')) {
+                                icon = '⚙️';
+                            }
+
+                            fileDiv.innerHTML =
+                                `<span class="explorer-icon">${icon}</span><a href="http://localhost:8080${file.url}" target="_blank">${file.name}</a>`;
+                            explorerContent.appendChild(fileDiv);
+                        });
+                    }
+                });
+            } catch (error) {
+                console.error('Failed to load explorer:', error);
+                explorerContent.innerHTML =
+                    `<div style="color: #f48771; padding: 12px; font-size: 12px;">Error loading explorer: ${error.message}</div>`;
+            }
+        }
+
+        // Load explorer on page load
+        loadExplorer();
+
+        // Refresh explorer every 5 seconds
+        setInterval(loadExplorer, 5000);
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+
+            if (body.classList.contains('light-mode')) {
+                // Switch to dark mode
+                body.classList.remove('light-mode');
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                // Switch to light mode
+                body.classList.add('light-mode');
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme preference
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+
+            if (savedTheme === 'light') {
+                body.classList.add('light-mode');
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light Mode';
+            } else {
+                body.classList.remove('light-mode');
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark Mode';
+            }
+        }
+
+        // Initialize theme on page load
+        loadTheme();
+
+        // Gemini Regular handler
+        async function askGeminiRegular() {
+            const question = questionInput.value.trim();
+            if (!question) {
+                showStatus('Please enter a question', 'error');
+                return;
+            }
+
+            // Disable buttons during ask
+            askBtn.disabled = true;
+            btnClear.disabled = true;
+            showLoading();
+
+            try {
+                const response = await fetch('http://localhost:8080/ask-gemini', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        question
+                    })
+                });
+
+                const data = await response.json();
+                hideLoading();
+
+                // Re-enable buttons
+                askBtn.disabled = false;
+                btnClear.disabled = false;
+
+                if (data.error) {
+                    responseArea.innerHTML = `<strong>Error:</strong> ${data.error}`;
+                    showStatus('Error occurred', 'error');
+                } else {
+                    // Extract text from Gemini response
+                    let answer = '';
+                    if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0]
+                        .content.parts) {
+                        answer = data.candidates[0].content.parts.map(part => part.text || '').join('');
+                    }
+                    // Render Markdown nicely
+                    responseArea.innerHTML = marked.parse(answer || 'No response');
+                    showStatus('Response received', 'success');
+                }
+            } catch (error) {
+                hideLoading();
+                // Re-enable buttons on error
+                askBtn.disabled = false;
+                btnClear.disabled = false;
+                responseArea.innerHTML = `<strong>Error:</strong> ${error.message}`;
+                showStatus('Network error', 'error');
+            }
+        }
+
+        // Gemini Stream handler
+        async function askGeminiStream() {
+            const question = questionInput.value.trim();
+            if (!question) {
+                showStatus('Please enter a question', 'error');
+                return;
+            }
+
+            // Disable buttons during ask
+            askBtn.disabled = true;
+            btnClear.disabled = true;
+            showLoading();
+            responseArea.innerHTML = '';
+            let fullText = '';
+
+            try {
+                const response = await fetch('http://localhost:8080/ask-gemini-stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        question
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+
+                while (true) {
+                    const {
+                        done,
+                        value
+                    } = await reader.read();
+                    if (done) break;
+
+                    buffer += decoder.decode(value, {
+                        stream: true
+                    });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop(); // Save incomplete line
+
+                    for (const line of lines) {
+                        if (!line.startsWith('data: ')) continue;
+
+                        try {
+                            const data = JSON.parse(line.slice(6));
+
+                            // Handle Gemini stream response
+                            if (data.candidates && data.candidates[0] && data.candidates[0].content && data
+                                .candidates[0].content.parts) {
+                                for (const part of data.candidates[0].content.parts) {
+                                    if (part.text) {
+                                        fullText += part.text;
+                                        // Render markdown as we go
+                                        responseArea.innerHTML = marked.parse(fullText);
+                                    }
+                                }
+                                if (!loading.classList.contains('hide')) {
+                                    hideLoading();
+                                }
+                            }
+                        } catch (err) {
+                            console.error('Error parsing SSE data:', err, line);
+                        }
+                    }
+                }
+
+                hideLoading();
+                askBtn.disabled = false;
+                btnClear.disabled = false;
+                showStatus('Streaming complete', 'success');
+            } catch (error) {
+                hideLoading();
+                // Re-enable buttons on error
+                askBtn.disabled = false;
+                btnClear.disabled = false;
+                responseArea.textContent = `Error: ${error.message}`;
+                showStatus('Streaming error', 'error');
+            }
+        }
+
+        // Allow Enter to submit, Shift+Enter for newline
+        questionInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                askQuestion();
+            }
+        });
+    </script>
+</body>
+
+</html>

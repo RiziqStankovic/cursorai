@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21.362 9.354H12V.396a.396.396 0 0 0-.716-.233L2.203 12.424l-.401.562a1.04 1.04 0 0 0 .836 1.659H12v8.959a.396.396 0 0 0 .716.233l9.081-12.261.401-.562a1.04 1.04 0 0 0-.836-1.66z" fill="currentColor"/>
+                    </svg>
+                    <span class="logo-text">Supabase</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Project</div>
+                    <a href="#" class="nav-item active" data-page="overview">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 1L2 5v6l6 4 6-4V5L8 1z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Overview</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="database">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 2C4.69 2 2 2.9 2 4v8c0 1.1 2.69 2 6 2s6-.9 6-2V4c0-1.1-2.69-2-6-2z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M2 4v8M14 4v8M8 2v12" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                        <span>Database</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="auth">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <circle cx="8" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M3 14c0-2.5 2-4.5 5-4.5s5 2 5 4.5" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                        <span>Authentication</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="storage">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M2 4h12v8H2V4z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M5 4V2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                        <span>Storage</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="api">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 1L2 5v6l6 4 6-4V5L8 1z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M8 5v6M5 8h6" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                        <span>API</span>
+                    </a>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">Settings</div>
+                    <a href="#" class="nav-item" data-page="settings">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M8 1v2M8 13v2M15 8h-2M3 8H1M13.5 3.5l-1.4 1.4M3.9 11.1l-1.4 1.4M13.5 12.5l-1.4-1.4M3.9 4.9l-1.4-1.4" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                        <span>Settings</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1 class="page-title">Overview</h1>
+                    <span class="project-badge">Production</span>
+                </div>
+                <div class="header-right">
+                    <div class="header-actions">
+                        <button class="btn-icon" title="Notifications">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M10 2a6 6 0 0 1 6 6v4a2 2 0 0 0 2 2h1a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2h1a2 2 0 0 0 2-2V8a6 6 0 0 1 6-6z" stroke="currentColor" stroke-width="1.5"/>
+                                <circle cx="15" cy="4" r="3" fill="#ef4444"/>
+                            </svg>
+                        </button>
+                        <button class="btn-icon" title="Help">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M10 14v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <circle cx="10" cy="6" r="1" fill="currentColor"/>
+                            </svg>
+                        </button>
+                        <div class="user-menu">
+                            <div class="user-avatar">
+                                <span>JD</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Overview Page -->
+                <div class="page" id="overview-page">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-label">API Requests</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <div class="stat-value">1,234,567</div>
+                            <div class="stat-change positive">+12.5% from last month</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-label">Database Size</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <div class="stat-value">2.4 GB</div>
+                            <div class="stat-change">45% of quota</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-label">Active Users</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <div class="stat-value">8,421</div>
+                            <div class="stat-change positive">+8.2% from last month</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-label">Storage Used</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <div class="stat-value">156 MB</div>
+                            <div class="stat-change">12% of quota</div>
+                        </div>
+                    </div>
+
+                    <div class="content-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Recent Activity</h2>
+                                <button class="btn-text">View all</button>
+                            </div>
+                            <div class="card-content">
+                                <div class="activity-list">
+                                    <div class="activity-item">
+                                        <div class="activity-icon success">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                <path d="M13 4L6 11l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="activity-text">Database backup completed</div>
+                                            <div class="activity-time">2 minutes ago</div>
+                                        </div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon info">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+                                                <path d="M8 5v3M8 11h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                            </svg>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="activity-text">New user registered</div>
+                                            <div class="activity-time">15 minutes ago</div>
+                                        </div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon warning">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                <path d="M8 4v4M8 10h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                                <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+                                            </svg>
+                                        </div>
+                                        <div class="activity-content">
+                                            <div class="activity-text">API rate limit warning</div>
+                                            <div class="activity-time">1 hour ago</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Quick Actions</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="action-grid">
+                                    <button class="action-btn">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                        <span>New Table</span>
+                                    </button>
+                                    <button class="action-btn">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>Upload File</span>
+                                    </button>
+                                    <button class="action-btn">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" stroke-width="2"/>
+                                            <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                        <span>View Docs</span>
+                                    </button>
+                                    <button class="action-btn">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2"/>
+                                            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>API Settings</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Page -->
+                <div class="page hidden" id="database-page">
+                    <div class="page-header">
+                        <div>
+                            <h2>Database</h2>
+                            <p class="page-description">Manage your PostgreSQL database tables, relationships, and data</p>
+                        </div>
+                        <button class="btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            New Table
+                        </button>
+                    </div>
+                    <div class="card">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Table Name</th>
+                                        <th>Rows</th>
+                                        <th>Size</th>
+                                        <th>Last Modified</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="table-name">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M8 2C4.69 2 2 2.9 2 4v8c0 1.1 2.69 2 6 2s6-.9 6-2V4c0-1.1-2.69-2-6-2z" stroke="currentColor" stroke-width="1.5"/>
+                                                </svg>
+                                                <span>users</span>
+                                            </div>
+                                        </td>
+                                        <td>1,234</td>
+                                        <td>2.4 MB</td>
+                                        <td>2 hours ago</td>
+                                        <td>
+                                            <div class="table-actions">
+                                                <button class="btn-icon-small" title="Edit">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M8.5 1.5l4 4-7 7H1.5v-4l7-7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="btn-icon-small" title="Delete">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="table-name">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M8 2C4.69 2 2 2.9 2 4v8c0 1.1 2.69 2 6 2s6-.9 6-2V4c0-1.1-2.69-2-6-2z" stroke="currentColor" stroke-width="1.5"/>
+                                                </svg>
+                                                <span>products</span>
+                                            </div>
+                                        </td>
+                                        <td>567</td>
+                                        <td>1.8 MB</td>
+                                        <td>1 day ago</td>
+                                        <td>
+                                            <div class="table-actions">
+                                                <button class="btn-icon-small" title="Edit">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M8.5 1.5l4 4-7 7H1.5v-4l7-7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="btn-icon-small" title="Delete">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="table-name">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M8 2C4.69 2 2 2.9 2 4v8c0 1.1 2.69 2 6 2s6-.9 6-2V4c0-1.1-2.69-2-6-2z" stroke="currentColor" stroke-width="1.5"/>
+                                                </svg>
+                                                <span>orders</span>
+                                            </div>
+                                        </td>
+                                        <td>3,456</td>
+                                        <td>4.2 MB</td>
+                                        <td>3 hours ago</td>
+                                        <td>
+                                            <div class="table-actions">
+                                                <button class="btn-icon-small" title="Edit">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M8.5 1.5l4 4-7 7H1.5v-4l7-7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="btn-icon-small" title="Delete">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Auth Page -->
+                <div class="page hidden" id="auth-page">
+                    <div class="page-header">
+                        <div>
+                            <h2>Authentication</h2>
+                            <p class="page-description">Configure user authentication and manage user sessions</p>
+                        </div>
+                        <button class="btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            Add Provider
+                        </button>
+                    </div>
+                    <div class="content-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Providers</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="provider-list">
+                                    <div class="provider-item">
+                                        <div class="provider-info">
+                                            <div class="provider-icon">📧</div>
+                                            <div>
+                                                <div class="provider-name">Email</div>
+                                                <div class="provider-status enabled">Enabled</div>
+                                            </div>
+                                        </div>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="provider-item">
+                                        <div class="provider-info">
+                                            <div class="provider-icon">G</div>
+                                            <div>
+                                                <div class="provider-name">Google</div>
+                                                <div class="provider-status enabled">Enabled</div>
+                                            </div>
+                                        </div>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="provider-item">
+                                        <div class="provider-info">
+                                            <div class="provider-icon">f</div>
+                                            <div>
+                                                <div class="provider-name">Facebook</div>
+                                                <div class="provider-status disabled">Disabled</div>
+                                            </div>
+                                        </div>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="provider-item">
+                                        <div class="provider-info">
+                                            <div class="provider-icon">g</div>
+                                            <div>
+                                                <div class="provider-name">GitHub</div>
+                                                <div class="provider-status disabled">Disabled</div>
+                                            </div>
+                                        </div>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">User Statistics</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="stat-list">
+                                    <div class="stat-item">
+                                        <div class="stat-item-label">Total Users</div>
+                                        <div class="stat-item-value">8,421</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-item-label">Active Sessions</div>
+                                        <div class="stat-item-value">1,234</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-item-label">New Users (30d)</div>
+                                        <div class="stat-item-value">456</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Storage Page -->
+                <div class="page hidden" id="storage-page">
+                    <div class="page-header">
+                        <div>
+                            <h2>Storage</h2>
+                            <p class="page-description">Manage your file storage buckets and objects</p>
+                        </div>
+                        <button class="btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            New Bucket
+                        </button>
+                    </div>
+                    <div class="card">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Bucket Name</th>
+                                        <th>Files</th>
+                                        <th>Size</th>
+                                        <th>Public</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="table-name">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M2 4h12v8H2V4z" stroke="currentColor" stroke-width="1.5"/>
+                                                </svg>
+                                                <span>avatars</span>
+                                            </div>
+                                        </td>
+                                        <td>234</td>
+                                        <td>45.2 MB</td>
+                                        <td><span class="badge badge-success">Yes</span></td>
+                                        <td>
+                                            <div class="table-actions">
+                                                <button class="btn-icon-small" title="Edit">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M8.5 1.5l4 4-7 7H1.5v-4l7-7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="table-name">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M2 4h12v8H2V4z" stroke="currentColor" stroke-width="1.5"/>
+                                                </svg>
+                                                <span>documents</span>
+                                            </div>
+                                        </td>
+                                        <td>567</td>
+                                        <td>123.8 MB</td>
+                                        <td><span class="badge badge-warning">No</span></td>
+                                        <td>
+                                            <div class="table-actions">
+                                                <button class="btn-icon-small" title="Edit">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M8.5 1.5l4 4-7 7H1.5v-4l7-7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="table-name">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M2 4h12v8H2V4z" stroke="currentColor" stroke-width="1.5"/>
+                                                </svg>
+                                                <span>images</span>
+                                            </div>
+                                        </td>
+                                        <td>1,890</td>
+                                        <td>456.3 MB</td>
+                                        <td><span class="badge badge-success">Yes</span></td>
+                                        <td>
+                                            <div class="table-actions">
+                                                <button class="btn-icon-small" title="Edit">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path d="M8.5 1.5l4 4-7 7H1.5v-4l7-7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Page -->
+                <div class="page hidden" id="api-page">
+                    <div class="page-header">
+                        <div>
+                            <h2>API</h2>
+                            <p class="page-description">API keys, endpoints, and documentation</p>
+                        </div>
+                    </div>
+                    <div class="content-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">API Keys</h2>
+                                <button class="btn-text">Regenerate</button>
+                            </div>
+                            <div class="card-content">
+                                <div class="api-key-section">
+                                    <div class="form-group">
+                                        <label class="form-label">Project URL</label>
+                                        <div class="input-with-copy">
+                                            <input type="text" class="form-input" value="https://abcdefgh.supabase.co" readonly>
+                                            <button class="btn-copy" data-value="https://abcdefgh.supabase.co">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M5.5 4.5H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-2.5M10.5 1.5h3a1 1 0 0 1 1 1v3M10.5 1.5L13.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">anon public</label>
+                                        <div class="input-with-copy">
+                                            <input type="text" class="form-input" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." readonly>
+                                            <button class="btn-copy" data-value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M5.5 4.5H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-2.5M10.5 1.5h3a1 1 0 0 1 1 1v3M10.5 1.5L13.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">service_role secret</label>
+                                        <div class="input-with-copy">
+                                            <input type="text" class="form-input" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." readonly>
+                                            <button class="btn-copy" data-value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                    <path d="M5.5 4.5H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-2.5M10.5 1.5h3a1 1 0 0 1 1 1v3M10.5 1.5L13.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">API Documentation</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="doc-links">
+                                    <a href="#" class="doc-link">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                            <path d="M10 2L3 7v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7l-7-5z" stroke="currentColor" stroke-width="1.5"/>
+                                        </svg>
+                                        <span>REST API Reference</span>
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="doc-link">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                            <path d="M10 2L3 7v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7l-7-5z" stroke="currentColor" stroke-width="1.5"/>
+                                        </svg>
+                                        <span>JavaScript Client</span>
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="doc-link">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                            <path d="M10 2L3 7v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7l-7-5z" stroke="currentColor" stroke-width="1.5"/>
+                                        </svg>
+                                        <span>GraphQL API</span>
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Page -->
+                <div class="page hidden" id="settings-page">
+                    <div class="page-header">
+                        <div>
+                            <h2>Settings</h2>
+                            <p class="page-description">Manage your project settings and configuration</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Project Settings</h2>
+                        </div>
+                        <div class="card-content">
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label class="form-label">Project Name</label>
+                                    <input type="text" class="form-input" value="My Supabase Project">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Database Password</label>
+                                    <input type="password" class="form-input" value="••••••••••••">
+                                    <button class="btn-text">Reset Password</button>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Region</label>
+                                    <select class="form-input">
+                                        <option>US East (N. Virginia)</option>
+                                        <option>EU West (Ireland)</option>
+                                        <option>Asia Pacific (Tokyo)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Plan</label>
+                                    <div class="plan-badge">Pro Plan</div>
+                                </div>
+                                <div class="form-actions">
+                                    <button class="btn-primary">Save Changes</button>
+                                    <button class="btn-secondary">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

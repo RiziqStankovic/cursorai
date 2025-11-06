@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Coding - Platform Pembelajaran Teknologi Terdepan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="32" height="32" rx="8" fill="#00D4FF"/>
+                        <path d="M16 8L22 12V20L16 24L10 20V12L16 8Z" fill="white"/>
+                    </svg>
+                    <span class="logo-text">BelajarCoding</span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link active">Beranda</a></li>
+                    <li><a href="#courses" class="nav-link">Kursus</a></li>
+                    <li><a href="#about" class="nav-link">Tentang</a></li>
+                    <li><a href="#contact" class="nav-link">Kontak</a></li>
+                    <li><a href="#" class="nav-link btn-login">Masuk</a></li>
+                    <li><a href="#" class="nav-link btn-register">Daftar</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Tingkatkan Skill Teknologi Anda dengan <span class="highlight">Kursus Berkualitas</span>
+                    </h1>
+                    <p class="hero-description">
+                        Belajar dari para expert dengan kurikulum terstruktur dan project-based learning. 
+                        Siapkan diri Anda untuk karir di dunia teknologi.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#courses" class="btn btn-primary">Mulai Belajar</a>
+                        <a href="#about" class="btn btn-secondary">Pelajari Lebih Lanjut</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">50K+</div>
+                            <div class="stat-label">Siswa Aktif</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">200+</div>
+                            <div class="stat-label">Kursus</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Mentor</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-card">
+                        <div class="card-header">
+                            <div class="card-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="code-preview">
+                                <div class="code-line">
+                                    <span class="code-keyword">function</span> 
+                                    <span class="code-function">belajarCoding</span>() {
+                                </div>
+                                <div class="code-line indent">
+                                    <span class="code-keyword">return</span> 
+                                    <span class="code-string">"Sukses!"</span>;
+                                </div>
+                                <div class="code-line">}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Kategori Populer</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">💻</div>
+                    <h3>Web Development</h3>
+                    <p>HTML, CSS, JavaScript, React, Node.js</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">📱</div>
+                    <h3>Mobile Development</h3>
+                    <p>Android, iOS, Flutter, React Native</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🤖</div>
+                    <h3>Machine Learning</h3>
+                    <p>Python, TensorFlow, Data Science</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">☁️</div>
+                    <h3>Cloud Computing</h3>
+                    <p>AWS, Google Cloud, Azure</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🔒</div>
+                    <h3>Cybersecurity</h3>
+                    <p>Ethical Hacking, Network Security</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🎨</div>
+                    <h3>UI/UX Design</h3>
+                    <p>Figma, Adobe XD, Design Thinking</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Kursus Populer</h2>
+                <p class="section-subtitle">Pilih kursus yang sesuai dengan minat dan tujuan karir Anda</p>
+            </div>
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all">Semua</button>
+                <button class="filter-btn" data-filter="beginner">Pemula</button>
+                <button class="filter-btn" data-filter="intermediate">Menengah</button>
+                <button class="filter-btn" data-filter="advanced">Lanjutan</button>
+            </div>
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Course cards will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Mengapa Pilih Kami?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3>Kurikulum Terstruktur</h3>
+                    <p>Materi pembelajaran yang disusun secara sistematis dari dasar hingga advanced</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <h3>Mentor Berpengalaman</h3>
+                    <p>Dibimbing oleh praktisi industri yang sudah terbukti kompeten di bidangnya</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📜</div>
+                    <h3>Sertifikat Resmi</h3>
+                    <p>Dapatkan sertifikat yang diakui industri setelah menyelesaikan kursus</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3>Project-Based Learning</h3>
+                    <p>Belajar sambil membuat project nyata yang bisa ditambahkan ke portfolio</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Akses Seumur Hidup</h3>
+                    <p>Update materi terbaru dan akses konten selamanya setelah membeli kursus</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Komunitas Aktif</h3>
+                    <p>Bergabung dengan komunitas developer untuk diskusi dan networking</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Apa Kata Alumni?</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Kursus yang sangat membantu! Dari nol sampai bisa membuat aplikasi web sendiri. 
+                        Mentornya sangat sabar dan materi mudah dipahami."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div class="author-info">
+                            <div class="author-name">Ahmad Rizki</div>
+                            <div class="author-role">Frontend Developer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Platform terbaik untuk belajar coding! Project-based learning-nya sangat membantu 
+                        untuk memahami konsep secara praktis."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">S</div>
+                        <div class="author-info">
+                            <div class="author-name">Siti Nurhaliza</div>
+                            <div class="author-role">Full Stack Developer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">
+                        "Setelah ikut kursus di sini, saya berhasil mendapatkan pekerjaan sebagai developer. 
+                        Terima kasih untuk semua mentor dan tim!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">B</div>
+                        <div class="author-info">
+                            <div class="author-name">Budi Santoso</div>
+                            <div class="author-role">Mobile Developer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Siap Memulai Perjalanan Coding Anda?</h2>
+                <p>Bergabunglah dengan ribuan developer yang sudah sukses mengembangkan karir mereka</p>
+                <a href="#courses" class="btn btn-primary btn-large">Daftar Sekarang</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="32" height="32" rx="8" fill="#00D4FF"/>
+                            <path d="M16 8L22 12V20L16 24L10 20V12L16 8Z" fill="white"/>
+                        </svg>
+                        <span>BelajarCoding</span>
+                    </div>
+                    <p>Platform pembelajaran teknologi terdepan untuk mengembangkan skill dan karir Anda.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="LinkedIn">💼</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Perusahaan</h4>
+                    <ul>
+                        <li><a href="#about">Tentang Kami</a></li>
+                        <li><a href="#">Karir</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Partner</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Kursus</h4>
+                    <ul>
+                        <li><a href="#courses">Semua Kursus</a></li>
+                        <li><a href="#">Kursus Gratis</a></li>
+                        <li><a href="#">Kursus Premium</a></li>
+                        <li><a href="#">Bootcamp</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Bantuan</h4>
+                    <ul>
+                        <li><a href="#contact">Kontak</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BelajarCoding. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
