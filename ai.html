@@ -1343,7 +1343,7 @@
             showLoading();
 
             try {
-                const response = await fetch('http://localhost:8080/ask', {
+                const response = await fetch('/ask', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1406,7 +1406,7 @@
             };
 
             try {
-                const response = await fetch('http://localhost:8080/ask-stream', {
+                const response = await fetch('/ask-stream', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1549,7 +1549,7 @@
 
             try {
                 // Start async job
-                const response = await fetch('http://localhost:8080/create-folder', {
+                const response = await fetch('/create-folder', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1600,7 +1600,7 @@
             // Poll every 1 second
             jobStatusInterval = setInterval(async () => {
                 try {
-                    const response = await fetch(`http://localhost:8080/job-status?job_id=${jobId}`);
+                    const response = await fetch(`/job-status?job_id=${jobId}`);
 
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -1637,7 +1637,7 @@
                         createBtn.textContent = 'Create App';
 
                         // Show success in preview section
-                        const previewURL = `http://localhost:8080${job.url}`;
+                        const previewURL = job.url;
                         appId.textContent = job.folder_name;
                         filePathEl.textContent = job.file_path;
                         appLink.href = previewURL;
@@ -1677,7 +1677,7 @@
 
         async function loadExplorer() {
             try {
-                const response = await fetch('http://localhost:8080/list-apps');
+                const response = await fetch('/list-apps');
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -1717,7 +1717,7 @@
                             }
 
                             fileDiv.innerHTML =
-                                `<span class="explorer-icon">${icon}</span><a href="http://localhost:8080${file.url}" target="_blank">${file.name}</a>`;
+                                `<span class="explorer-icon">${icon}</span><a href="${file.url}" target="_blank">${file.name}</a>`;
                             explorerContent.appendChild(fileDiv);
                         });
                     }
@@ -1791,7 +1791,7 @@
             showLoading();
 
             try {
-                const response = await fetch('http://localhost:8080/ask-gemini', {
+                const response = await fetch('/ask-gemini', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1848,7 +1848,7 @@
             let fullText = '';
 
             try {
-                const response = await fetch('http://localhost:8080/ask-gemini-stream', {
+                const response = await fetch('/ask-gemini-stream', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
