@@ -2456,7 +2456,7 @@ func main() {
 	// Serve ai.html as main page at root (catch-all, must be last)
 	http.Handle("/", compressionMiddleware(cors(http.HandlerFunc(rootHandler))))
 
-	fmt.Println("🎉 Cursor API Server running at http://localhost:8080")
+	fmt.Println("🎉 Cursor API Server running at http://localhost:8087")
 	fmt.Println("")
 	fmt.Println("📱 Web Interface:")
 	fmt.Println("  - GET  / (main UI - ai.html)")
@@ -2488,5 +2488,5 @@ func main() {
 	fmt.Printf("  - Max concurrent requests: %d\n", MaxConcurrentRequests)
 	fmt.Printf("  - Max buffer size: %d MB\n", MaxBufferSize/1024/1024)
 	fmt.Printf("  - Buffer read size: %d KB\n", BufferReadSize/1024)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8087", nil))
 }
