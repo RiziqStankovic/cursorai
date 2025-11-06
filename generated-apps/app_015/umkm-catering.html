@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UMKM Catering Emak Emak - Pesan Makanan & Jasa Catering</title>
+  <meta name="description" content="UMKM Catering untuk acara rumahan, arisan, kantor, dan hajatan. Terima pesanan nasi box, prasmanan, snack box, tumpeng. Enak, hemat, halal, higienis." />
+  <meta name="theme-color" content="#fb923c" />
+
+  <!-- Favicon (emoji) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🍱</text></svg>">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary border-bottom subtle-blur" id="mainNavbar">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#home">
+        <span class="brand-badge">🍽️</span>
+        <span>UMKM Catering Emak Emak</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#paket">Paket</a></li>
+          <li class="nav-item"><a class="nav-link" href="#keunggulan">Keunggulan</a></li>
+          <li class="nav-item"><a class="nav-link" href="#cara-pesan">Cara Pesan</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimoni">Testimoni</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+          <li class="nav-item ms-lg-3"><a class="btn btn-brand btn-sm px-3" href="#pesan">Pesan Sekarang</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero-section" id="home">
+    <div class="container position-relative">
+      <div class="row align-items-center g-4 py-5">
+        <div class="col-lg-6 order-2 order-lg-1" data-reveal>
+          <span class="badge rounded-pill text-bg-warning-soft mb-3">Halal • Higienis • Rumahan</span>
+          <h1 class="display-5 fw-extrabold mb-3">Catering Lezat & Hemat untuk Semua Acara</h1>
+          <p class="lead text-secondary mb-4">Terima pesanan <strong>nasi box, prasmanan, snack box, dan tumpeng</strong>. Cocok untuk arisan, kantor, ulang tahun, hingga hajatan. Rasa rumahan khas <em>emak-emak</em> yang bikin nagih!</p>
+          <div class="d-flex gap-3 flex-wrap">
+            <a href="#paket" class="btn btn-brand btn-lg"><i class="bi bi-basket me-2"></i>Lihat Paket</a>
+            <a href="#pesan" class="btn btn-outline-dark btn-lg"><i class="bi bi-whatsapp me-2"></i>Pesan via WA</a>
+          </div>
+          <div class="d-flex gap-4 mt-4 small text-secondary">
+            <div><i class="bi bi-check-circle-fill text-success me-1"></i>Tanpa MSG berlebih</div>
+            <div><i class="bi bi-check-circle-fill text-success me-1"></i>Bahan segar harian</div>
+            <div><i class="bi bi-check-circle-fill text-success me-1"></i>Free ongkir* area tertentu</div>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2" data-reveal>
+          <div class="hero-card shadow-lg rounded-4 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1600&auto=format&fit=crop" alt="Catering" class="w-100 hero-img" />
+            <div class="position-absolute top-0 end-0 m-3 badge rounded-pill text-bg-light-subtle">Dapur Bersih</div>
+            <div class="position-absolute bottom-0 start-0 m-3 bg-dark-subtle text-dark-emphasis rounded-pill px-3 py-1 small">Rating 4.9/5 ⭐</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="gradient-divider"></div>
+  </header>
+
+  <!-- Keunggulan -->
+  <section class="py-5" id="keunggulan">
+    <div class="container">
+      <div class="text-center mb-5" data-reveal>
+        <h2 class="fw-bold">Kenapa Pilih Kami?</h2>
+        <p class="text-secondary mb-0">Kualitas rasa rumahan, harga bersahabat, layanan ramah.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3" data-reveal>
+          <div class="feature-card h-100 p-4 rounded-4 border">
+            <div class="feature-icon text-brand"><i class="bi bi-heart-fill"></i></div>
+            <h5 class="mt-3">Rasa Rumahan</h5>
+            <p class="text-secondary mb-0">Bumbu turun-temurun khas emak-emak, bikin ketagihan.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3" data-reveal>
+          <div class="feature-card h-100 p-4 rounded-4 border">
+            <div class="feature-icon text-brand"><i class="bi bi-shield-check"></i></div>
+            <h5 class="mt-3">Higienis & Halal</h5>
+            <p class="text-secondary mb-0">Dapur bersih, bahan segar, bersertifikat halal rumahan.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3" data-reveal>
+          <div class="feature-card h-100 p-4 rounded-4 border">
+            <div class="feature-icon text-brand"><i class="bi bi-cash-coin"></i></div>
+            <h5 class="mt-3">Hemat</h5>
+            <p class="text-secondary mb-0">Paket lengkap mulai dari 18K per porsi.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3" data-reveal>
+          <div class="feature-card h-100 p-4 rounded-4 border">
+            <div class="feature-icon text-brand"><i class="bi bi-truck"></i></div>
+            <h5 class="mt-3">Antar Tepat Waktu</h5>
+            <p class="text-secondary mb-0">Pengantaran tepat waktu agar acara lancar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paket -->
+  <section class="py-5 bg-light" id="paket">
+    <div class="container">
+      <div class="text-center mb-5" data-reveal>
+        <h2 class="fw-bold">Pilihan Paket Favorit</h2>
+        <p class="text-secondary mb-0">Pilih sesuai kebutuhan dan budget Anda.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4" data-reveal>
+          <div class="pricing-card h-100 rounded-4 border p-4">
+            <div class="d-flex align-items-center justify-content-between">
+              <h5 class="mb-0">Paket Hemat</h5>
+              <span class="badge rounded-pill text-bg-warning-soft">Best Value</span>
+            </div>
+            <p class="text-secondary small mt-2">Nasi box: ayam goreng, sayur, sambal, air mineral.</p>
+            <div class="display-6 fw-bold text-brand">Rp18K</div>
+            <ul class="list-unstyled mt-3 small">
+              <li><i class="bi bi-check2 text-success me-2"></i>Min. 20 porsi</li>
+              <li><i class="bi bi-check2 text-success me-2"></i>Free sendok + tisu</li>
+            </ul>
+            <button class="btn btn-outline-dark w-100 mt-3 btn-pilih-paket" data-paket="Paket Hemat" data-harga="18000">Pilih Paket</button>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-reveal>
+          <div class="pricing-card h-100 rounded-4 border p-4 highlight">
+            <div class="d-flex align-items-center justify-content-between">
+              <h5 class="mb-0">Paket Lengkap</h5>
+              <span class="badge rounded-pill text-bg-danger">Favorit</span>
+            </div>
+            <p class="text-secondary small mt-2">Nasi box: ayam bakar, sayur, sambal, buah, teh manis.</p>
+            <div class="display-6 fw-bold text-brand">Rp25K</div>
+            <ul class="list-unstyled mt-3 small">
+              <li><i class="bi bi-check2 text-success me-2"></i>Min. 20 porsi</li>
+              <li><i class="bi bi-check2 text-success me-2"></i>Free kerupuk</li>
+            </ul>
+            <button class="btn btn-brand w-100 mt-3 btn-pilih-paket" data-paket="Paket Lengkap" data-harga="25000">Pilih Paket</button>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-reveal>
+          <div class="pricing-card h-100 rounded-4 border p-4">
+            <div class="d-flex align-items-center justify-content-between">
+              <h5 class="mb-0">Paket Prasmanan</h5>
+              <span class="badge rounded-pill text-bg-info">Acara Besar</span>
+            </div>
+            <p class="text-secondary small mt-2">Stand prasmanan lengkap: nasi, lauk, sayur, dessert, minum.</p>
+            <div class="display-6 fw-bold text-brand">Mulai Rp35K</div>
+            <ul class="list-unstyled mt-3 small">
+              <li><i class="bi bi-check2 text-success me-2"></i>Min. 50 porsi</li>
+              <li><i class="bi bi-check2 text-success me-2"></i>Tenaga pramusaji</li>
+            </ul>
+            <button class="btn btn-outline-dark w-100 mt-3 btn-pilih-paket" data-paket="Paket Prasmanan" data-harga="35000">Pilih Paket</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cara Pesan -->
+  <section class="py-5" id="cara-pesan">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6" data-reveal>
+          <img class="rounded-4 w-100 shadow-sm" src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=1600&auto=format&fit=crop" alt="Cara pesan catering">
+        </div>
+        <div class="col-lg-6" data-reveal>
+          <h2 class="fw-bold mb-3">Cara Pesan Mudah</h2>
+          <ol class="timeline list-unstyled m-0">
+            <li>
+              <div class="num">1</div>
+              <div>
+                <h6 class="mb-1">Pilih Paket</h6>
+                <p class="text-secondary small mb-0">Lihat paket sesuai kebutuhan acara Anda.</p>
+              </div>
+            </li>
+            <li>
+              <div class="num">2</div>
+              <div>
+                <h6 class="mb-1">Isi Form</h6>
+                <p class="text-secondary small mb-0">Lengkapi data dan jumlah porsi.</p>
+              </div>
+            </li>
+            <li>
+              <div class="num">3</div>
+              <div>
+                <h6 class="mb-1">Konfirmasi</h6>
+                <p class="text-secondary small mb-0">Kami akan konfirmasi dan siapkan pesanan.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form Pemesanan -->
+  <section class="py-5 bg-light" id="pesan">
+    <div class="container">
+      <div class="text-center mb-5" data-reveal>
+        <h2 class="fw-bold">Form Pemesanan</h2>
+        <p class="text-secondary mb-0">Isi data berikut, total otomatis dihitung. Lanjut via WhatsApp.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-7" data-reveal>
+          <form id="orderForm" class="card border-0 shadow-sm rounded-4 p-4">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nama Pemesan</label>
+                <input type="text" class="form-control" name="nama" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">No. WhatsApp</label>
+                <input type="tel" class="form-control" name="wa" placeholder="08xxxxxxxxxx" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Tanggal Acara</label>
+                <input type="date" class="form-control" name="tanggal" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Jenis Acara</label>
+                <select class="form-select" name="jenis" required>
+                  <option value="Arisan">Arisan</option>
+                  <option value="Ulang Tahun">Ulang Tahun</option>
+                  <option value="Kantor">Kantor</option>
+                  <option value="Hajatan">Hajatan</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Paket</label>
+                <select class="form-select" name="paket" id="paketSelect" required>
+                  <option value="Paket Hemat" data-harga="18000">Paket Hemat - 18.000</option>
+                  <option value="Paket Lengkap" data-harga="25000" selected>Paket Lengkap - 25.000</option>
+                  <option value="Paket Prasmanan" data-harga="35000">Paket Prasmanan - 35.000</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Jumlah Porsi</label>
+                <input type="number" class="form-control" name="porsi" id="porsiInput" min="1" value="20" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Catatan</label>
+                <textarea class="form-control" name="catatan" rows="3" placeholder="Misal: tanpa pedas untuk anak-anak"></textarea>
+              </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-between mt-4 flex-wrap gap-3">
+              <div>
+                <div class="text-secondary small">Estimasi Total</div>
+                <div class="h4 m-0 fw-bold" id="totalDisplay">Rp0</div>
+              </div>
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-brand"><i class="bi bi-whatsapp me-2"></i>Pesan via WhatsApp</button>
+                <button type="reset" class="btn btn-outline-secondary">Reset</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-5" data-reveal>
+          <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+            <h5 class="mb-3">Info & Ketentuan</h5>
+            <ul class="small text-secondary mb-0">
+              <li>Minimal pemesanan: 20 porsi (prasmanan 50 porsi).</li>
+              <li>DP 30% saat konfirmasi, pelunasan H-1.</li>
+              <li>Gratis ongkir area tertentu, di luar itu menyesuaikan.</li>
+              <li>Custom menu dan request diet bisa dibicarakan.</li>
+            </ul>
+            <hr />
+            <div class="d-flex align-items-center gap-3">
+              <div class="avatar">👩‍🍳</div>
+              <div>
+                <div class="fw-semibold">Emak Chef</div>
+                <div class="small text-secondary">Fast response 08.00 - 20.00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimoni -->
+  <section class="py-5" id="testimoni">
+    <div class="container">
+      <div class="text-center mb-5" data-reveal>
+        <h2 class="fw-bold">Kata Pelanggan</h2>
+        <p class="text-secondary mb-0">Mereka sudah pesan, sekarang giliran Anda.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4" data-reveal>
+          <div class="testimonial h-100 p-4 rounded-4 border shadow-sm">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="avatar">😊</div>
+              <div>
+                <div class="fw-semibold">Ibu Rina</div>
+                <div class="small text-secondary">Arisan RT</div>
+              </div>
+            </div>
+            <p class="mb-0">Rasanya enak, porsinya pas, dan pengantaran tepat waktu. Semua ibu-ibu puas!</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-reveal>
+          <div class="testimonial h-100 p-4 rounded-4 border shadow-sm">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="avatar">🤝</div>
+              <div>
+                <div class="fw-semibold">Pak Andi</div>
+                <div class="small text-secondary">Meeting Kantor</div>
+              </div>
+            </div>
+            <p class="mb-0">Harga bersahabat untuk kantor, rasa tetap top. Next event pasti repeat!</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-reveal>
+          <div class="testimonial h-100 p-4 rounded-4 border shadow-sm">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="avatar">🎉</div>
+              <div>
+                <div class="fw-semibold">Mbak Sari</div>
+                <div class="small text-secondary">Ulang Tahun</div>
+              </div>
+            </div>
+            <p class="mb-0">Snack box variasinya banyak, anak-anak suka semua. Recommended!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-5 bg-light" id="faq">
+    <div class="container">
+      <div class="text-center mb-4" data-reveal>
+        <h2 class="fw-bold">Pertanyaan Umum</h2>
+      </div>
+      <div class="accordion rounded-4 overflow-hidden shadow-sm" id="faqAccordion" data-reveal>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">Apakah bisa custom menu?</button>
+          </h2>
+          <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Bisa. Silakan sebutkan menu favorit Anda, kami sesuaikan.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">Apakah ada tester?</button>
+          </h2>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Untuk pesanan besar (≥100 porsi) tersedia tester by appointment.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Pengiriman ke mana saja?</button>
+          </h2>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Area utama kecamatan setempat. Di luar area, ongkir menyesuaikan.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-5">
+    <div class="container text-center" data-reveal>
+      <div class="rounded-4 p-5 bg-gradient-brand text-white shadow-sm">
+        <h2 class="fw-bold mb-2">Siap Bikin Acara Anda Lebih Berkesan?</h2>
+        <p class="mb-4 opacity-75">Klik tombol di bawah untuk chat langsung dengan kami.</p>
+        <a href="#pesan" class="btn btn-light btn-lg"><i class="bi bi-whatsapp me-2"></i>Pesan Sekarang</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-4 border-top bg-body">
+    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+      <div class="d-flex align-items-center gap-2">
+        <span class="brand-badge">🍽️</span>
+        <span class="fw-semibold">UMKM Catering Emak Emak</span>
+      </div>
+      <div class="small text-secondary">© <span id="year"></span> All rights reserved.</div>
+      <div class="small">
+        <a href="#faq" class="link-secondary text-decoration-none">Syarat & Ketentuan</a>
+        <span class="mx-2">•</span>
+        <a href="#faq" class="link-secondary text-decoration-none">Kebijakan Privasi</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- App Script -->
+  <script src="script.js"></script>
+</body>
+</html>

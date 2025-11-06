@@ -1811,13 +1811,13 @@ func generateHTMLInDirectoryWithProgress(ctx context.Context, prompt string, wor
 		"IMPORTANT: You are currently in a folder that has been created for this project. The current working directory is the project folder.\n"+
 		"All files MUST be created in this current directory (the folder where you are now).\n\n"+
 		"Generate the application with the following structure:\n"+
-		"1. Create an HTML file named \"%s\" (or any descriptive HTML filename based on the app theme) with a complete, modern, and responsive structure - save it in the current directory\n"+
-		"2. Create a CSS file (style.css) if needed with modern styling - save it in the current directory\n"+
-		"3. Create a JavaScript file (script.js) if needed with any necessary interactivity - save it in the current directory\n\n"+
-		"CRITICAL: The folder has already been created. You are INSIDE that folder now. Create all files directly in this current directory.\n"+
+		"1. Create an HTML file named \"%s\" (or any descriptive HTML filename based on the app theme) with a complete, modern ui design, and responsive structure - save it in the current directory\n"+
+		"2. Create a CSS file (style.css) if needed with modern styling u can use tailwind css or bootstrap css or any other css framework - save it in the current directory\n"+
+		"3. Create a JavaScript file (script.js) if needed with any necessary interactivity u can use vanilla javascript or any other javascript framework  with animation and transition - save it in the current directory\n\n"+
+		"CRITICAL: for the security reason, do not make code inject internal folder or can access other folder. The folder has already been created. You are INSIDE that folder now. Create all files directly in this current directory.\n"+
 		"Do NOT create a new folder. Save files directly here using standard file creation commands.\n"+
 		"The HTML file should be named something descriptive based on the app (e.g., if it's a coffee shop app, name it 'toko-kopi.html' or similar).\n"+
-		"Make sure the HTML is complete, functional, and modern. Use best practices for HTML5, CSS3, and vanilla JavaScript.", prompt, htmlFileName)
+		"Make sure the HTML is complete, functional, and modern. Use best practices for HTML5, CSS3, and vanilla JavaScript. Make sure the application is responsive and mobile friendly.", prompt, htmlFileName)
 
 	for i, apiKey := range keys {
 		// Check if context is cancelled
@@ -1837,7 +1837,7 @@ func generateHTMLInDirectoryWithProgress(ctx context.Context, prompt string, wor
 		cmd := exec.CommandContext(ctx, "cursor-agent", args...)
 		cmd.Dir = workingDir // Set working directory to the folder
 
-		updateJobStatus(jobID, "processing", fmt.Sprintf("Generating with API key %d/%d...", i+1, len(keys)), "", "", "", "")
+		updateJobStatus(jobID, "processing", fmt.Sprintf("Generating with AI Processing %d/%d...", i+1, len(keys)), "", "", "", "")
 		log.Printf("[INFO] Job %s - Executing cursor-agent in directory: %s", jobID, workingDir)
 
 		output, err := cmd.CombinedOutput()

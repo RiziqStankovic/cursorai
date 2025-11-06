@@ -65,6 +65,15 @@
                 font-size: 18px;
             }
 
+            .donate-button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .donate-button span:not(.donate-icon) {
+                display: none;
+            }
+
             .container {
                 padding: 16px;
             }
@@ -120,6 +129,7 @@
             justify-content: space-between;
             backdrop-filter: blur(10px);
             background: rgba(37, 37, 38, 0.95);
+            gap: 12px;
         }
 
         .chat-header h1 {
@@ -127,6 +137,45 @@
             font-size: 20px;
             font-weight: 600;
             color: #cccccc;
+            flex: 1;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .donate-button {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 13px;
+            color: #ffffff;
+            user-select: none;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .donate-button:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            border-color: #059669;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .donate-button:active {
+            transform: translateY(0);
+        }
+
+        .donate-icon {
+            font-size: 16px;
         }
 
         .theme-toggle {
@@ -213,9 +262,15 @@
             color: #333333;
         }
 
-        body.light-mode .theme-toggle:hover {
-            background: #f5f5f5;
-            border-color: #007acc;
+        body.light-mode .donate-button {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-color: #10b981;
+            color: #ffffff;
+        }
+
+        body.light-mode .donate-button:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            border-color: #059669;
         }
 
         body.light-mode .btn-regular,
@@ -1055,7 +1110,7 @@
             <div class="app-creation-header">Create Your Own App</div>
             <div class="app-creation-content">
                 <div class="input-group" style="margin-bottom: 16px;">
-                    <label for="appPrompt" style="font-size: 12px; margin-bottom: 6px;">App Prompt:</label>
+                    <label for="appPrompt" style="font-size: 12px; margin-bottom: 6px;">Create App Prompt:</label>
                     <textarea id="appPrompt" placeholder="Enter app description..." rows="3"
                         style="width: 100%; padding: 8px; border: 1px solid #3e3e42; border-radius: 6px; font-size: 12px; background-color: #1e1e1e; color: #cccccc; resize: vertical; min-height: 60px; font-family: inherit;"></textarea>
                 </div>
@@ -1082,9 +1137,15 @@
     <div class="main-content">
         <div class="chat-header">
             <h1>💬 Cursor AI Assistant</h1>
-            <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
-                <span class="theme-toggle-icon" id="themeIcon">🌙</span>
-                <span id="themeText">Dark Mode</span>
+            <div class="header-actions">
+                <a href="https://app.midtrans.com/payment-links/1762420628677" target="_blank" class="donate-button">
+                    <span class="donate-icon">☕</span>
+                    <span>Donasi seikhlasnya</span>
+                </a>
+                <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                    <span class="theme-toggle-icon" id="themeIcon">🌙</span>
+                    <span id="themeText">Dark Mode</span>
+                </div>
             </div>
         </div>
         <div class="container">
@@ -1597,7 +1658,7 @@
         }
 
         async function pollJobStatus(jobId) {
-            // Poll every 1 second
+            // Poll every 10 seconds
             jobStatusInterval = setInterval(async () => {
                 try {
                     const response = await fetch(`/job-status?job_id=${jobId}`);
@@ -1672,7 +1733,7 @@
                     console.error('Error polling job status:', error);
                     // Continue polling even on error
                 }
-            }, 1000); // Poll every 1 second
+            }, 10000); // Poll every 10 seconds
         }
 
         async function loadExplorer() {

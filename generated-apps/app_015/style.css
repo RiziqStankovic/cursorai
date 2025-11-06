@@ -1,0 +1,66 @@
+/* Brand */
+:root{
+  --brand:#fb923c; /* orange */
+  --brand-600:#f97316;
+  --brand-700:#ea580c;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, 'Apple Color Emoji','Segoe UI Emoji';
+  color:#111827;
+}
+
+/* Helpers */
+.fw-extrabold{font-weight:800}
+.text-brand{color:var(--brand)}
+.btn-brand{--bs-btn-bg:var(--brand);--bs-btn-border-color:var(--brand);--bs-btn-hover-bg:var(--brand-700);--bs-btn-hover-border-color:var(--brand-700);--bs-btn-color:#fff}
+.text-bg-warning-soft{background:#fff7ed;color:#9a3412}
+.bg-gradient-brand{
+  background: radial-gradient(1200px 400px at 50% -200px, #ffd7b2, transparent 60%), linear-gradient(135deg, var(--brand) 0%, #ffb86b 100%);
+}
+
+/* Navbar */
+.subtle-blur{backdrop-filter:saturate(120%) blur(6px)}
+.brand-badge{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:#fff7ed;border:1px solid #fde68a}
+
+/* Hero */
+.hero-section{padding-top:88px;background:
+  radial-gradient(800px 240px at 20% 0%, #fff7ed 0, transparent 60%),
+  radial-gradient(800px 240px at 80% 0%, #e0f2fe 0, transparent 60%)
+}
+.hero-card{position:relative}
+.hero-img{aspect-ratio: 16/10; object-fit: cover; transition: transform .6s ease}
+.hero-card:hover .hero-img{transform: scale(1.03)}
+.gradient-divider{height:24px;background:linear-gradient(90deg,#fff, #fff7ed,#fff)}
+
+/* Features */
+.feature-card{transition:transform .25s ease, box-shadow .25s ease}
+.feature-card:hover{transform:translateY(-3px); box-shadow:0 10px 24px rgba(0,0,0,.06)}
+.feature-icon{font-size:28px}
+
+/* Pricing */
+.pricing-card{transition:transform .25s ease, box-shadow .25s ease}
+.pricing-card:hover{transform:translateY(-3px); box-shadow:0 12px 28px rgba(0,0,0,.07)}
+.pricing-card.highlight{border-width:2px;border-color:var(--brand)}
+
+/* Timeline */
+.timeline li{display:flex;gap:12px;align-items:flex-start;padding:10px 0}
+.timeline .num{flex:0 0 28px;height:28px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:#fff7ed;color:#9a3412;font-weight:700}
+
+/* Cards */
+.testimonial{background:#fff}
+.avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#f1f5f9}
+
+/* Reveal animations */
+[data-reveal]{opacity:0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease}
+[data-reveal].revealed{opacity:1; transform: none}
+
+/* Footer */
+footer{position:relative;z-index:2}
+
+/* Responsive tweaks */
+@media (max-width: 575.98px){
+  .display-5{font-size:2rem}
+}
